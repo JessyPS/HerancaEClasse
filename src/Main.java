@@ -9,10 +9,47 @@ public class Main {
         } while (true);
     }
 
+    private static void mostrarMenuPrincipal() {
+
+        exibirOpcoesMenuPrincipal();
+        String msg = "Opção escolhida: ";
+
+        int opcao = lerOpcao();
+
+        switch (opcao) {
+            case 1 -> { System.out.println(msg + "Sanduíche");
+                montarSanduiches(); }
+            case 2 -> System.out.println(msg + "Massas");
+            case 3 -> System.out.println(msg + "Bolos");
+            case 4 -> fecharPedido();
+            case 0 -> { System.out.println(msg + "Sair do sistema");
+                System.exit(0); }
+            default -> System.out.println("Opção inválida! Selecione outra opção. ");
+        }
+    }
+
+    private static void exibirOpcoesMenuPrincipal() {
+        System.out.println("\nMenu Principal\n");
+        System.out.println("1 -> Sanduíches");
+        System.out.println("2 -> Massas");
+        System.out.println("3 -> Bolos");
+        System.out.println("4 -> Fechar Pedido");
+        System.out.println("0 -> SAIR");
+        System.out.println("\nDigite a sua opção: ");
+    }
+
+    private static int lerOpcao() {
+        // Configurar Scanner
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextInt();
+    }
+
     public static void montarSanduiches() {
         Sanduiche sanduiche = new Sanduiche();
-        String [] ing = new String[10];
+//        String[] ingredientes = new String[10];
+
         do {
+//            System.out.println(ingredientes + ("1 -> Queijo", "2 -> Hamburger"));
             System.out.println("---------------------------");
             System.out.println("\nMenu de Sanduíches \n");
             System.out.println("Escolha seus ingredientes ");
@@ -29,8 +66,8 @@ public class Main {
             System.out.println("Opção: ");
             //Leitura da opção
 
-            Scanner scanner = new Scanner(System.in);
-            int opcao = scanner.nextInt();
+            int opcao = lerOpcao();
+
             //Tratando a opção
             switch (opcao) {
                 case 1 -> sanduiche.adicionarIngrediente("Queijo");
@@ -52,37 +89,21 @@ public class Main {
         System.out.println(sanduiche.toString());
     }
 
-    public static void mostrarMenuMassas() {}
-
-    public static void mostrarMenuBolos() {}
-
-    private static void mostrarMenuPrincipal() {
-        System.out.println("\nMenu Principal\n");
-        System.out.println("1 -> Sanduíches");
-        System.out.println("2 -> Massas");
-        System.out.println("3 -> Bolos");
-        System.out.println("0 -> SAIR");
-        System.out.println("\nDigite a sua opção: ");
-
-        // Configurar Scanner
-        Scanner scanner = new Scanner(System.in);
-        int opcao = scanner.nextInt();
-
-        System.out.println("Opção digitada: " + opcao);
-        String msg = "Opção escolhida: ";
-        switch (opcao) {
-            case 1 -> {
-                System.out.println(msg + "Sanduíche");
-                montarSanduiches();
-            }
-            case 2 -> System.out.println(msg + "Massas");
-            case 3 -> System.out.println(msg + "Bolos");
-            case 4 -> {
-                System.out.println(msg + "Sair do sistema");
-                System.exit(0);
-            }
-            default -> System.out.println("Opção inválida! Selecione outra opção. ");
-        }
+    private static void fecharPedido() {
+        Sanduiche sanduiche = new Sanduiche();
+        System.out.println("--------------------------");
+        System.out.println("Fechar Pedido ");
+        System.out.println("Distância da entrega: ");
+        System.out.println("Tempo de entrega estimado: "
+                + (sanduiche.getTempoDePreparo()+ sanduiche.calcularTempoEntrega(lerOpcao())) + " minutos.");
     }
+
+    public static void mostrarMenuMassas() {
+    }
+
+    public static void mostrarMenuBolos() {
+    }
+
+
 }
 
